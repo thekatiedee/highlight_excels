@@ -63,20 +63,42 @@ def condit_highlight():
                 cell.fill = pink_fill
                 wb.save("my_test.xlsx")
 
-    # create a new sheet with the key
-    wb.create_sheet("key")
-    sheet3 = wb["key"]
+    # create a new sheet for the key
+    wb.create_sheet("what_does_it_mean")
+    sheet3 = wb["what_does_it_mean"]
     # yellow are the books, pink are the authors
     # intro
     intro = sheet3["A1"]
-    intro.value = "this is a test"
+    intro.font = Font(name="Helvetica", size=14, bold=True)
+    intro.value = "KEY:"
 
     # yellow books
+    yellow = sheet3["A2"]
+    yellow.value = "favorite books"
+    yellow.fill = yellow_fill
 
-    cell.fill = yellow_fill
+    # pink books
+    pink = sheet3["B2"]
+    pink.value = "favorite authors"
+    pink.fill = pink_fill
 
-    # pink authors
+    # save wb
     wb.save("my_test.xlsx")
+
+    # create a new sheet instances of ISBNs
+    wb.create_sheet("count")
+    sheet4 = wb["count"]
+
+    # turn ISBN list in sheet1 col C to a list
+    isbn = []
+    for column in sheet1["C"]:
+        isbn.append(column.value)
+    print(isbn)
+
+    # print number of times an ISBN occurs in the ISBN col (list 'isbn'):
+    for x in isbn:
+        print(f"ISBN: {x}")
+        print(f"count: {isbn.count(x)}")
 
 
 if __name__ == "__main__":
