@@ -67,3 +67,54 @@ for x in faves:
     print(my_title)
     # conditionally format
     # (first row, first col, last row, last col)
+
+
+# [f(x) if condition else g(x) for x in sequence]
+
+# ALMOST WORKS
+# for rows in ws.iter_rows(min_row=1, max_row=15, min_col=0, max_col=3):
+#     for cell in rows:
+#         if cell.value in faves:
+#             print(cell)
+#             rule.formula = [f'$A1:A17= "{cell}"']
+#             ws.conditional_formatting.add("A1:D17", rule)
+# wb.save("my_test.xlsx")
+# cycle over cells in all rows
+
+# rule.formula = [f'$A1:A17= "{x}"']
+# ws.conditional_formatting.add("A1:D17", rule)
+
+# -----
+
+y = ""
+# for y in faves:
+#     rule.formula = [f'$A1:A17= "{y}"']
+#     ws.conditional_formatting.add("A1:D17", rule)
+
+# if cell.value in faves:
+#     print(cell)
+#     rule.formula = [f'$A1:A17= "{cell}"']
+#     ws.conditional_formatting.add("A1:D17", rule)
+
+# cycle over cells in all rows
+# book = "the great gatsby"
+# if book in faves:
+#     print("it's here!")
+# pull col A into a list
+# compare lists
+# if col A item in faves list
+# then highlight col A row
+
+# new_list = []
+# # this turns col A into a list
+# for cell in ws["A"]:
+#     new_list.append(cell.value)
+#     print(cell)
+
+# print(new_list)
+
+# find if subset
+# if True: highlight cell
+
+#     cell.font = Font(color="ff007f", italic=True)
+# wb.save("font_test.xlsx")
