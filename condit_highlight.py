@@ -9,14 +9,16 @@ from openpyxl.formatting import Rule
 
 def condit_highlight():
 
-    faves = [
-        "the great gatsby",
-        "harry potter and the prisoner of azkaban",
-        "TFiOS",
-        "the bell jar",
-        "slaughterhouse five",
-        "looking for alaska",
-    ]
+    # faves_books = [
+    #     "the great gatsby",
+    #     "harry potter and the prisoner of azkaban",
+    #     "TFiOS",
+    #     "the bell jar",
+    #     "slaughterhouse five",
+    #     "looking for alaska",
+    # ]
+
+    # faves_authors = ["john green", "kurt vonnegut", "maria semple"]
 
     # open file
     excel = "excel_docs\in_progress.xlsx"
@@ -24,23 +26,40 @@ def condit_highlight():
     wb = load_workbook(excel)
     ws = wb.active
     # highlight cell yellow
-    yellow_fill = PatternFill(bgColor="FFFF00")
+    yellow_fill = PatternFill(
+        start_color="FFFF00", end_color="FFFF00", fill_type="solid"
+    )
     new_style = DifferentialStyle(fill=yellow_fill)
     rule = Rule(type="expression", dxf=new_style, stopIfTrue=True)
+    sheet1 = wb["books"]
+    sheet2 = wb["favorites"]
+    print(sheet2.values)
 
-    # NEARLY WORKS
-    # this prints the individual rows that contain the faves items out of the list of all books
-    for rows in ws.iter_rows(min_row=1, max_row=15, min_col=0, max_col=3):
+    # sheet2 fave books list
+    fave_books = []
+    for column in sheet2["A"]:
+        fave_books.append(column.value)
+
+    # sheet2 authors list
+    fave_authors = []
+    for column in sheet2["B"]:
+        fave_books.append(column.value)
+
+    # highlighting all the faves_books:
+    for rows in sheet1.iter_rows(min_row=1, max_row=15, min_col=0, max_col=3):
         for cell in rows:
             # if statement works now!
-            if cell.value in faves:
-                # correctly prints six times
-                print("yes")
-                # rule only applies to line 7 - it's overwriting
-                rule.formula = [f'$A1:A17= "{cell.value}"']
-                ws.conditional_formatting.add("A1:D17", rule)
+            if cell.value in fave_books:
+                cell.fill = yellow_fill
                 wb.save("my_test.xlsx")
-                # only saving the last iteration ('looking for alaska')
+
+    # highlighting fave authors
+    for rows in sheet1.iter_rows(min_row=1, max_row=15, min_col=0, max_col=3):
+        for cell in rows:
+            # if statement works now!
+            if cell.value in fave_authors:
+                cell.fill = yellow_fill
+                wb.save("my_test.xlsx")
 
 
 if __name__ == "__main__":
