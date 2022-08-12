@@ -1,65 +1,41 @@
 from operator import index
 import pandas as pd
+from openpyxl import Workbook, load_workbook
+from openpyxl.styles import PatternFill, Border
+from openpyxl.styles.differential import DifferentialStyle
+from openpyxl.formatting import Rule
+
+faves = [
+    "the great gatsby",
+    "harry potter and the prisoner of azkaban",
+    "TFiOS",
+    "the bell jar",
+    "slaughterhouse five",
+    "looking for alaska",
+]
 
 
 def condit_highlight():
     # open file
     excel = "excel_docs\in_progress.xlsx"
-    df = pd.read_excel(excel)
-    # print(df)
-
-    title = "the catcher in the rye"
-
-    # for x in rows
-    # if x in list
-    # highlight yellow
-
-    faves = ["the great gatsby", "the catcher in the rye"]
-
-    # for x in df[df["books"]]:
-    #     print("ex:")
-    #     print(x)
-    #     if x in faves:
-    #         print(x)
-
-    # print("df.loc:", df.loc[3])
-
-    (row, col) = df.shape
-
-    # format1 = df.add_format({"bg_color": "#FFC7CE", "font_color": "#9C0006"})
-
-    writer = pd.ExcelWriter("output\condit_highlight.xlsx", engine="xlsxwriter")
-
-    # research: data = pd.read_excel(target_file, sheet_name = None) returns a Dict. When you loop over data you get the keys of the Dict.
-    df_dict = pd.read_excel(excel, sheet_name=None, dtype=str, engine="openpyxl")
-    # to extract values in dictionary: feature3 = [d.get('Feature3') for d in a]
-
-    values = [z.get("the great gatsby") for z in df_dict]
-
-    print(values)
-
-    return
-    # '.book' is like calling 'xlsxwriter.Workbook('file name')
-    wb = writer.book
-
-    format_yellow = wb.add_format({"bg_color": "yellow"})
-
-    print(row, col)
-    for x in faves:
-        my_title = df[df["books"] == x]
-        print(my_title)
-        # conditionally format
-        # (first row, first col, last row, last col)
-
-    print(df.iloc[5, 0])
-
-    print(df.loc[0])
-
-    df.style.apply(
-        lambda x: "background-color : yellow" if x.value() == df.iloc[5, 0] else ""
-    )
-
-    df.to_excel("conditional_highlighting.xlsx")
+    wb = load_workbook(excel)
+    ws = wb.active
+    yellow_fill = PatternFill(bgColor="FFFF00")
+    new_style = DifferentialStyle(fill=yellow_fill)
+    rule = Rule(type="expression", dxf=new_style, stopIfTrue=True)
+    y = ""
+    # for y in faves:
+    #     rule.formula = [f'$A1:A17= "{y}"']
+    # #     ws.conditional_formatting.add("A1:D17", rule)
+    # ALMOST WORKS
+    # for rows in ws.iter_rows(min_row=1, max_row=15, min_col=0, max_col=3):
+    #     for cell in rows:
+    #         if cell.value in faves:
+    #             print(cell)
+    #             rule.formula = [f'$A1:A17= "{cell}"']
+    #             ws.conditional_formatting.add("A1:D17", rule)
+    # wb.save("my_test.xlsx")
+    # cycle over cells in all rows
 
 
 if __name__ == "__main__":
