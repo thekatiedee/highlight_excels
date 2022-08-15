@@ -5,20 +5,10 @@ from openpyxl import Workbook, load_workbook
 from openpyxl.styles import PatternFill, Border, Font
 from openpyxl.styles.differential import DifferentialStyle
 from openpyxl.formatting import Rule
+from collections import Counter
 
 
-def condit_highlight():
-
-    # faves_books = [
-    #     "the great gatsby",
-    #     "harry potter and the prisoner of azkaban",
-    #     "TFiOS",
-    #     "the bell jar",
-    #     "slaughterhouse five",
-    #     "looking for alaska",
-    # ]
-
-    # faves_authors = ["john green", "kurt vonnegut", "maria semple"]
+def highlighting():
 
     # open file
     excel = "excel_docs\in_progress.xlsx"
@@ -32,8 +22,6 @@ def condit_highlight():
     # highlight fave authors pink
     pink_fill = PatternFill(start_color="FF69B4", end_color="FF69B4", fill_type="solid")
 
-    new_style = DifferentialStyle(fill=yellow_fill)
-    rule = Rule(type="expression", dxf=new_style, stopIfTrue=True)
     sheet1 = wb["books"]
     sheet2 = wb["favorites"]
 
@@ -95,11 +83,66 @@ def condit_highlight():
         isbn.append(column.value)
     print(isbn)
 
-    # print number of times an ISBN occurs in the ISBN col (list 'isbn'):
-    for x in isbn:
-        print(f"ISBN: {x}")
-        print(f"count: {isbn.count(x)}")
+    # count number of occurances per ISBN instance
+    counted = Counter(isbn)
+
+    wb.create_sheet("teeeest")
+    sheet5 = wb["teeeest"]
+
+    # letters = ["a", "b", "c"]
+    # num = [1, 2, 3]
+
+    # for x in letters:
+    #     print(x)
+    # for y in num:
+    #     print(y)
+
+    # print all key value pairs (ISBNs with counts)
+    # for key, value in counted.items():
+    # print(key)
+    # k_list.append(key)
+    # print(value)
+    # v_list.append(key)
+
+    # 14
+    # print(len(counted))
+    for it in counted:
+        for key, value in counted.items():
+            keys = sheet5[f"A{it}"]
+            keys.value = key
+            it += 1
+            wb.save("my_test.xlsx")
+    print(value)
+
+    # create a new sheet for a test
+    # wb.create_sheet("teeeest")
+    # sheet5 = wb["teeeest"]
+
+    # letters = ["a", "b", "c"]
+    # num = [1, 2, 3]
+
+    # for x in letters:
+    #     print(x)
+    # for y in num:
+    #     print(y)
+
+    # # test = sheet5[""]
+
+    # for it in range(1, 4):
+    #     lets = sheet5[f"A{it}"]
+    #     lets.value = key
+    #     it += 1
+    #     wb.save("my_test.xlsx")
+
+    # # create a new sheet for the key
+    # wb.create_sheet("what_does_it_mean")
+    # sheet3 = wb["what_does_it_mean"]
+    # # yellow are the books, pink are the authors
+    # # intro
+    # intro = sheet3["A1"]
+    # intro.font = Font(name="Helvetica", size=14, bold=True)
+    # intro.value = "KEY:"
 
 
 if __name__ == "__main__":
-    condit_highlight()
+    highlighting()

@@ -118,3 +118,29 @@ y = ""
 
 #     cell.font = Font(color="ff007f", italic=True)
 # wb.save("font_test.xlsx")
+
+# print number of times an ISBN occurs in the ISBN col (list 'isbn'):
+for x in isbn:
+    print(f"ISBN: {x}")
+    print(f"count: {isbn.count(x)}")
+
+# print all key value pairs (ISBNs with counts)
+for key, value in counted.items():
+# print(key)
+# k_list.append(key)
+# print(value)
+# v_list.append(key)
+for it in range(1, 4):
+    keys = sheet5[f"A{it}"]
+    keys.value = key
+    it += 1
+    wb.save("my_test.xlsx")
+print(value)
+
+for it in counted:
+    for key, value in counted.items():
+        keys = sheet5[f"A{it}"]
+        keys.value = key
+        it += 1
+        wb.save("my_test.xlsx")
+print(value)
