@@ -89,23 +89,6 @@ def highlighting():
     wb.create_sheet("teeeest")
     sheet5 = wb["teeeest"]
 
-    # letters = ["a", "b", "c"]
-    # num = [1, 2, 3]
-
-    # for x in letters:
-    #     print(x)
-    # for y in num:
-    #     print(y)
-
-    # print all key value pairs (ISBNs with counts)
-    # for key, value in counted.items():
-    # print(key)
-    # k_list.append(key)
-    # print(value)
-    # v_list.append(key)
-
-    # 14
-    # print(len(counted))
     for it in counted:
         for key, value in counted.items():
             keys = sheet5[f"A{it}"]
@@ -113,35 +96,6 @@ def highlighting():
             it += 1
             wb.save("my_test.xlsx")
     print(value)
-
-    # create a new sheet for a test
-    # wb.create_sheet("teeeest")
-    # sheet5 = wb["teeeest"]
-
-    # letters = ["a", "b", "c"]
-    # num = [1, 2, 3]
-
-    # for x in letters:
-    #     print(x)
-    # for y in num:
-    #     print(y)
-
-    # # test = sheet5[""]
-
-    # for it in range(1, 4):
-    #     lets = sheet5[f"A{it}"]
-    #     lets.value = key
-    #     it += 1
-    #     wb.save("my_test.xlsx")
-
-    # # create a new sheet for the key
-    # wb.create_sheet("what_does_it_mean")
-    # sheet3 = wb["what_does_it_mean"]
-    # # yellow are the books, pink are the authors
-    # # intro
-    # intro = sheet3["A1"]
-    # intro.font = Font(name="Helvetica", size=14, bold=True)
-    # intro.value = "KEY:"
 
 
 if __name__ == "__main__":
