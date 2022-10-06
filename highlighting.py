@@ -11,7 +11,7 @@ from collections import Counter
 def highlighting():
 
     # open file
-    excel = "excel_docs\in_progress.xlsx"
+    excel = "excel_docs\starting_ex\example_start.xlsx"
     # openpyxl way of opening a workbook
     wb = load_workbook(excel)
     ws = wb.active
@@ -23,16 +23,15 @@ def highlighting():
     pink_fill = PatternFill(start_color="FF69B4", end_color="FF69B4", fill_type="solid")
 
     sheet1 = wb["books"]
-    sheet2 = wb["favorites"]
 
     # sheet2 fave books list
     fave_books = []
-    for column in sheet2["A"]:
+    for column in sheet1["A"]:
         fave_books.append(column.value)
 
     # sheet2 authors list
     fave_authors = []
-    for column in sheet2["B"]:
+    for column in sheet1["B"]:
         fave_authors.append(column.value)
 
     # highlighting all the faves_books:
@@ -71,7 +70,7 @@ def highlighting():
     pink.fill = pink_fill
 
     # save wb
-    wb.save("my_test.xlsx")
+    wb.save("my_test1.xlsx")
 
     # create a new sheet instances of ISBNs
     wb.create_sheet("count")
